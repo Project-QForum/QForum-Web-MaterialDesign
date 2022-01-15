@@ -1,4 +1,4 @@
-# qforum-web-materialdesign
+# QForum-Web-MaterialDesign
 
 ## Project setup
 ```
