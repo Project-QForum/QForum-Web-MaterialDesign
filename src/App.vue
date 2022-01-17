@@ -46,8 +46,8 @@ import AppBar from "@/components/AppBar";
 import LoginForm from "@/components/form/LoginForm";
 import RegisterForm from "@/components/form/RegisterForm";
 import {getForumInfo} from "@/api/ForumApi";
-import {login, register} from "@/api/UserApi";
-
+import {login, register,LOGIN_URL} from "@/api/UserApi";
+import Request from "@/util/Request"
 export default {
   name: "App",
   components:{AppBar,LoginForm,RegisterForm},
@@ -93,7 +93,19 @@ export default {
           this.dialog.visible = true;
         }
       },
+      //这样就不用 async await 等待了
       onLogin:async (userName, password) => {
+        Request.post(LOGIN_URL,{
+          params: {
+            userName: userName,
+            password: password
+          }
+        }).then((res)=>{
+          this.$cookies.set("profile", JSON.stringify(res.profile), "30d");
+          this.$cookies.set("sessionId", res.sessionId, "30d");
+          //....等等
+        })
+
         let tmp = await login(userName,password);
         if(tmp["data"]["code"]===200){
           this.$cookies.set("profile", JSON.stringify(tmp["data"]["profile"]), "30d");

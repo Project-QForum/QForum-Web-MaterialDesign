@@ -1,6 +1,9 @@
 import service from '../base/Axios'
 import {config} from "@/config"
 
+export const LOGIN_URL="/user/login"
+
+
 export const login = (userName, password) => {
     return service({
         url: config.ApiUrl + 'user/login',
