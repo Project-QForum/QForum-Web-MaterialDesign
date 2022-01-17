@@ -1,39 +1,30 @@
-import service from '../base/Axios'
-import {config} from "@/config"
+import request from "@/util/Request"
 
 export const LOGIN_URL="/user/login"
 
 
 export const login = (userName, password) => {
-    return service({
-        url: config.ApiUrl + 'user/login',
-        method: 'post',
+    return request.get( '/user/login',{
         params: {
             userName: userName,
             password: password
         }
     })
-}, checkLogin = (sessionId) => {
-    return service({
-        url: config.ApiUrl + 'user/checkLogin',
-        method: 'post',
+}, checkLogin = (token) => {
+    return request.get( '/user/checkLogin',{
         params: {
-            sessionId: sessionId
+            token:token
         }
     })
 }, getProfile = (id,userName) => {
-    return service({
-        url: config.ApiUrl + 'user/getProfile',
-        method: 'post',
+    return request.post( '/user/getProfile',{
         params: {
             id:id,
             userName:userName
         }
     })
 }, register = (email,userName,password) => {
-    return service({
-        url: config.ApiUrl + 'user/register',
-        method: 'post',
+    return request.post( '/user/register',{
         params: {
             email:email,
             userName:userName,

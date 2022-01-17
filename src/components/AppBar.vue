@@ -31,8 +31,8 @@
         ></VTextField>
       </VResponsive>
       <div style="margin-left: 20px">
-        <AvatarView @click.native="onAvatarClick(sessionId)" v-if="profile" :profile="profile"></AvatarView>
-        <VBtn @click="onAvatarClick(sessionId)" color="blue" v-else dark>登录</VBtn>
+        <AvatarView @click.native="onAvatarClick(token)" v-if="profile" :profile="profile"></AvatarView>
+        <VBtn @click="onAvatarClick(token)" color="blue" v-else dark>登录</VBtn>
         <!--TODO:修复无头像但已登录会显示登录按钮-->
       </div>
 
@@ -51,20 +51,20 @@ export default {
   components: {AvatarView},
   props:["data","links","onAvatarClick"],
   created:async function() {
-    if(this.$cookies.get("sessionId")){
+    if(this.$cookies.get("token")){
       if(this.$cookies.get("profile")){
         this.profile = this.$cookies.get("profile");
       }
-      let tmp = await checkLogin(this.$cookies.get("sessionId"));
+      let tmp = await checkLogin(this.$cookies.get("token"));
       if(tmp["data"]["code"]===200){
-        this.sessionId = this.$cookies.get("sessionId");
-        this.profile = (await getProfile(this.profile["id"],this.profile["userName"]))["data"]["profile"];
+        this.token = this.$cookies.get("token");
+        this.profile = (await getProfile(this.profile["id"],this.profile["userName"])).data;
         this.$cookies.set("profile", JSON.stringify(this.profile), "30d");
         console.log("个人信息刷新成功");
       }
       else{
         this.$cookies.remove("profile");
-        this.$cookies.remove("sessionId");
+        this.$cookies.remove("token");
         this.profile = "";
         console.log("登录过期");
       }
@@ -79,7 +79,7 @@ export default {
   data(){
     return{
       profile:this.profile,
-      sessionId:this.sessionId
+      token:this.token
     }
   }
 }

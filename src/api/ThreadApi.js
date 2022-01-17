@@ -1,18 +1,13 @@
-import service from '../base/Axios'
-import {config} from "@/config"
+import request from "@/util/Request";
 export const listThreads = (boardId) => {
-    return service({
-        url: config.ApiUrl+'thread/list',
-        method: 'post',
+    return request.get("/thread/list",{
         params:{
             boardId:boardId
         }
     })
 };
 export const getThreadDetail = (threadId) => {
-    return service({
-        url: config.ApiUrl+'thread/getThreadDetail',
-        method: 'post',
+    return request.get("/thread/getThreadDetail",{
         params:{
             id:threadId
         }
@@ -24,30 +19,24 @@ export const postThread = (sessionId,boardId,title,content) => {
     formData.append("boardId",boardId);
     formData.append("title",title);
     formData.append("content",content);
-    return service({
-        url: config.ApiUrl+'thread/post',
-        method: 'post',
-        data:formData
+    return request.post("/thread/post",{
+        data: formData
     })
 };
-export const likeThread = (sessionId,tid) => {
-    return service({
-        url: config.ApiUrl+'thread/like',
-        method: 'post',
+export const likeThread = (token,tid) => {
+    return request.get("/thread/like",{
         params:{
             tid:tid,
-            sessionId:sessionId,
+            token:token,
             type:0
         }
     })
 };
-export const disLikeThread = (sessionId,tid) => {
-    return service({
-        url: config.ApiUrl+'thread/like',
-        method: 'post',
+export const disLikeThread = (token,tid) => {
+    return request.get("/thread/like",{
         params:{
             tid:tid,
-            sessionId:sessionId,
+            token:token,
             type:1
         }
     })

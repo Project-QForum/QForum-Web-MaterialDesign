@@ -31,7 +31,7 @@ export default {
   created:async function() {
     // 帖子
     let tmp = await listThreads(this.boardId);
-    this.threads = tmp["data"]["threadList"];
+    this.threads = tmp.data;
     // 重新渲染
     Vue.set(this.threads,0,this.threads[0]);
   },
@@ -39,7 +39,7 @@ export default {
     boardId:async function() {
       // 帖子
       let tmp = await listThreads(this.boardId);
-      this.threads = tmp["data"]["threadList"];
+      this.threads = tmp.data;
       // 重新渲染
       Vue.set(this.threads,0,this.threads[0]);
     }

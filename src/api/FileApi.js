@@ -1,7 +1,11 @@
-import axios from "axios";
-import {config} from "@/config";
+import request from "@/util/Request";
 export const uploadImage = (file) => {
     let formData = new FormData();
     formData.append('imageFile', file);
-    return axios.post(config.ApiUrl+"image/upload",formData,{headers:{"Content-Type": 'multipart/form-data'}})
+    return request.get( '/image/upload',{
+        data: formData,
+        headers:{
+            "Content-Type": 'multipart/form-data'
+        }
+    })
 };

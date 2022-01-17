@@ -37,7 +37,7 @@ export default {
   components:{ThreadOpsWidget, AuthorView},
   created:async function() {
     let tmp = await getThreadDetail(this.$route.params.tid);
-    this.thread = tmp["data"];
+    this.thread = tmp.data;
     this.markdownHTML = mavonEditor.markdownIt.render(this.thread["content"])
     this.likeList = JSON.parse(this.thread["likeList"]);
   },
@@ -51,10 +51,10 @@ export default {
   },
   methods:{
     handleLike:function (){
-      likeThread(this.$cookies.get("sessionId"),this.$route.params.tid);
+      likeThread(this.$cookies.get("token"),this.$route.params.tid);
     },
     handleDisLike:function (){
-      disLikeThread(this.$cookies.get("sessionId"),this.$route.params.tid);
+      disLikeThread(this.$cookies.get("token"),this.$route.params.tid);
     }
   }
 }

@@ -1,8 +1,4 @@
-import service from '../base/Axios'
-import {config} from "@/config"
+import request from "@/util/Request";
 export const listBoards = () => {
-    return service({
-        url: config.ApiUrl+'board/list',
-        method: 'post'
-    })
+    return request.get( '/board/list')
 };

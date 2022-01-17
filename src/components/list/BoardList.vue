@@ -32,7 +32,7 @@ export default {
   created:async function() {
     // 板块
     let tmp = await listBoards();
-    this.boards = tmp["data"]["boardList"];
+    this.boards = tmp.data;
     // 重新渲染
     Vue.set(this.boards,0,this.boards[0]);
     this.onSelectedBoardChanged(this.boards[0]["id"]);

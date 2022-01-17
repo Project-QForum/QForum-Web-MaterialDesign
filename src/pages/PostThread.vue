@@ -23,7 +23,7 @@ export default {
       value:"",
       title:"",
       post:async () => {
-        let tmp = (await postThread(this.$cookies.get("sessionId"), this.$route.query.boardId, this.title, this.value));
+        let tmp = (await postThread(this.$cookies.get("token"), this.$route.query.boardId, this.title, this.value));
         if(tmp["data"]["code"]===200){
           this.snackbar.text = "发布成功";
           await this.$router.push('/thread/'+tmp["data"]["id"])
